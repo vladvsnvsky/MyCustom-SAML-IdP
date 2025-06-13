@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - SAML IdP</title>
+  <style>
+    body {
+      background-color: #0a1d37;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      color: #e3e3e3;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #112544;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #001933;
+      width: 320px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #d0e3ff;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #1e3559;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #003366;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0f4471;
+    }
+  </style>
+</head>
+<body>
+
+  <form method="POST" action="/login">
+    <h2>Login</h2>
+
+    <label for="email">Email</label><br>
+    <input type="text" name="email" id="email" value="user1@test.com" placeholder="user1@test.com"><br>
+
+    <label for="password">Password</label><br>
+    <input type="password" name="password" id="password" placeholder="abcd" value="abcd"><br>
+
+     <!-- Hidden fields to carry the query params -->
+  <input type="hidden" name="SAMLRequest" value="{{ request.args.get('SAMLRequest', '') }}">
+  <input type="hidden" name="RelayState" value="{{ request.args.get('RelayState', '') }}">
+  <input type="hidden" name="SigAlg" value="{{ request.args.get('SigAlg', '') }}">
+  <input type="hidden" name="Signature" value="{{ request.args.get('Signature', '') }}">
+
+    <button type="submit">Log In</button>
+  </form>
+
+</body>
+</html>

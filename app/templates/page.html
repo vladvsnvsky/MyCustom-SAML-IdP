@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SAML /sso Tester</title>
+  <style>
+    body {
+      background-color: #0a1d37;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+    }
+    h2 {
+      color: #e3e3e3;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: 600;
+      color: #d0e3ff;
+    }
+    input[type="text"], textarea {
+      width: 80%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #1e3559;
+      color: white;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #003366;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0f4471;
+    }
+    p, ol {
+      background-color: #112544;
+      padding: 10px;
+      border-radius: 5px;
+      color: #9fc7ff;
+      font-family: monospace;
+      overflow-wrap: break-word;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+  <script>
+    function getParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || "";
+    }
+
+    function fillFieldsFromQuery() {
+      document.getElementById("samlRequest").value = getParam("SAMLRequest");
+      document.getElementById("relayState").value = getParam("RelayState");
+      document.getElementById("sigAlg").value = getParam("SigAlg");
+      document.getElementById("signature").value = getParam("Signature");
+    }
+
+    function setSessionCookie() {
+      const value = document.getElementById("sessionCookie").value;
+      document.cookie = "session=" + value + "; path=/";
+      alert("Session cookie set!");
+    }
+
+     function decodeSAMLRequest() {
+    try {
+      const b64 = document.getElementById("samlRequest").value;
+      const binary = atob(b64);
+
+      const binArray = Uint8Array.from(binary, c => c.charCodeAt(0));
+      const inflated = pako.inflateRaw(binArray, { to: 'string' });
+
+      document.getElementById("samlDecoded").value = inflated;
+    } catch (err) {
+      alert("Failed to decode or inflate: " + err.message);
+    }
+  }
+
+    window.onload = fillFieldsFromQuery;
+  </script>
+</head>
+<body>
+  <h2>Send SAML POST Request to /sso</h2>
+
+  <label for="sessionCookie">Session Cookie</label><br>
+<p>
+  This page helps you test your SAML Identity Provider by manually submitting a <code>SAMLRequest</code>.<br>
+  If you’re seeing this page, it means the <code>/sso</code> endpoint successfully validated your session cookie.<br><br>
+  It is encrypted on the server-side with a private key - check the backend code <a>here<a/>
+  You can view your session cookie in the browser by:</p>
+  <ol style="margin-left: 20px; color: #ffffff;">
+    <li>Right-click anywhere and select <strong>Inspect</strong></li>
+    <li>Open the <strong>Application</strong> tab</li>
+    <li>Expand the <strong>Cookies</strong> section and select your domain</li>
+  </ol>
+
+<input type="text" id="sessionCookie" placeholder="Paste your session token here">
+<button type="button" onclick="setSessionCookie()">Set Cookie</button><br><br>
+
+
+
+
+  <form action="/sso" method="POST">
+    <label>SAMLRequest:</label><br>
+    <input type="text" id="samlRequest" name="SAMLRequest"><br>
+    <small>This is a base64-encoded XML document from the Service Provider</small>
+    <button type="button" onclick="decodeSAMLRequest()">Decode</button><br><br>
+
+    <label>RelayState:</label><br>
+    <input type="text" id="relayState" name="RelayState"><br>
+    <small>Used to preserve state between the request and response (like a return URL)</small><br><br>
+
+    <label>SigAlg:</label><br>
+    <input type="text" id="sigAlg" name="SigAlg"><br>
+    <small>The algorithm used to create the signature (e.g., RSA-SHA256)</small><br><br>
+
+    <label>Signature:</label><br>
+    <input type="text" id="signature" name="Signature"><br>
+    <small>The digital signature calculated by the Service Provider over the request</small><br><br>
+
+    <button type="submit">Submit POST Request</button>
+  </form>
+
+  <h2>Decoded SAMLRequest (XML)</h2>
+<p>
+  Auth0 and most other Service Providers send the <code>SAMLRequest</code> parameter as a
+  Base64-encoded and DEFLATE-compressed (flatted) XML document. After decoding and inflating,
+  it reveals the raw XML AuthnRequest that your Identity Provider (IdP) must respond to.
+</p>
+<textarea id="samlDecoded" rows="15" readonly placeholder="Click 'Decode' to view decoded XML"></textarea>
+
+
+</body>
+</html>
