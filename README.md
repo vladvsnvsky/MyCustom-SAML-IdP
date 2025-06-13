@@ -32,10 +32,17 @@ A minimal custom **SAML 2.0 Identity Provider** built in **Python (Flask)** that
 
 ## 🔐 Session Handling
 
-Sessions are stored as encrypted cookies using a secret key (`KEY_TO_ENCODE`) and verified with a helper in `session_operations.py`.
+Sessions are stored as encrypted cookies using the secret key (`KEY_TO_ENCODE`) and are verified through helper functions in `session_operations.py`.
 
----
+For testing purposes, a mock session is preloaded on the server via the `ACTIVE_SESSIONS` list in `app.py`. This allows the Identity Provider to operate without connecting to a real database.
 
+```python
+ACTIVE_SESSIONS = [
+    "user_id:1829|email:testuser@test.org|name:TestFirstName TestLastName|expires:2025-06-15"
+]
+# Make sure the expiration date is set in the future relative to the current date
+
+```
 ## 📁 Project Structure
 
 ```
