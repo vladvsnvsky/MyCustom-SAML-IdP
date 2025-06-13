@@ -14,7 +14,7 @@ KEY_TO_ENCODE = os.getenv("KEY_TO_ENCODE")
 TEST_EMAIL = os.getenv("TEST_EMAIL")
 TEST_PASSWORD = os.getenv("TEST_PASSWORD")
 ACTIVE_SESSIONS = [
-    "user_id:1829|email:testuser@test.org|name:TestFirstName TestLastName|expires:2025-06-15"
+    "user_id:1829|email:user1@test.org|name:TestFirstName TestLastName|expires:2025-06-15"
 ]
 
 # Ensure all routes are imported so they register on app

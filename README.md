@@ -38,7 +38,7 @@ For testing purposes, a mock session is preloaded on the server via the `ACTIVE_
 
 ```python
 ACTIVE_SESSIONS = [
-    "user_id:1829|email:testuser@test.org|name:TestFirstName TestLastName|expires:2025-06-15"
+    "user_id:1829|email:user1@test.com|name:TestFirstName TestLastName|expires:2025-06-15"
 ]
 # Make sure the expiration date is set in the future relative to the current date
 
