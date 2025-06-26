@@ -1,2 +1,5 @@
-Flask
-lxml
+Flask~=3.1.1
+lxml~=5.4.0
+signxml~=4.0.5
+cryptography~=45.0.3
+python-dotenv~=1.1.0
