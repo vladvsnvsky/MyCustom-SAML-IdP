@@ -106,12 +106,11 @@ pip install -r requirements.txt
 ```
 python run.py
 ```
-
+# On Auth0 Side
+1. Create an `Auth0 SAML Connection` named `myIdp-Flask`
+2. Set a name and the Sign In URL to `http://localhost:5000/sso`
+3. Under `Login Experience` tab enable the option `Display connection as a button`
+4. Under `Applications`, enable the connection for the Tenant's `Default App`
+5. Go to `Getting Started` > Click on `Login Box` > `Try it out` and use the SAML Connection.
 ---
 
-## 🧪 Manual SAML Testing
-
-Use `/sso` with `page.html` to test SAML flows:
-- Paste a `SAMLRequest`, `RelayState`, etc.
-- Decode and inspect the request
-- Submit to see the signed `SAMLResponse`

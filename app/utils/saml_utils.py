@@ -14,10 +14,7 @@ NAMESPACES = {
 }
 
 def build_signed_saml_response(acs_url:str, issuer:str, audience:str, name_id:str, attributes:str, cert_path=None):
-    """
-    :param issuer: this will be the issuer of the SAMLResponse
-    :param audience: this is the issuer of the initial SAML Request
-    """
+
     now = datetime.datetime.now()
     response_id = "_" + str(uuid.uuid4())
     assertion_id = "_" + str(uuid.uuid4())

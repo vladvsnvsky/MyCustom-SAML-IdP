@@ -19,7 +19,6 @@ def login_page():
             "&SigAlg=" + quote(sig_alg or '') +
             "&Signature=" + quote(signature or '')
     )
-    print("Query params: ", query_params)
 
     encoded_session = request.cookies.get("session")
     session = get_valid_session(encoded_session)
@@ -37,11 +36,9 @@ def login_page():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    print("User credentials: " + email + " " + password)
 
     try:
         encoded_session = signin_email_and_password(email, password)
-        print("sso_url: " + sso_url)
         if encoded_session:
             resp = make_response(redirect(sso_url))
             resp.set_cookie("session", encoded_session, httponly=True)

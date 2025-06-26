@@ -41,7 +41,6 @@ def encode_session(session):
 def decode_session(encoded_session):
     f = _get_fernet()
     session = f.decrypt(encoded_session.encode()).decode()  # string
-    print("decode_session() returns " + session)
     return session
 
 def parse_decoded_session(decoded_session):
