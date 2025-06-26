@@ -97,6 +97,11 @@ openssl req -new -x509 -key private_key.pem -out saml_cert.pem -days 365
 ```
 The fill in the prompts
 
+3. Install the dependencies
+```commandline
+pip install -r requirements.txt
+```
+
 ```bash
 pip install flask
 export FLASK_APP=app.py
