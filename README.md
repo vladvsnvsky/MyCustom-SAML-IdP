@@ -39,7 +39,7 @@ For testing purposes, a mock session is preloaded on the server via the `ACTIVE_
 ```
 ## 📁 Project Structure
 
-```
+
 IdP-SAML/
 |  run.py
 |  requirements.txt
