@@ -28,6 +28,7 @@ def sso():
 
     login_url = "/login"+query_params
 
+    print("encoded_session: " + encoded_session)
     if not encoded_session:
         return redirect(login_url)
 
@@ -35,6 +36,7 @@ def sso():
     decoded_session = get_valid_session(encoded_session)
 
     if not decoded_session:
+        print("redirect to login because decoded_session is not valid")
         return redirect(login_url)
     else:
         if request.method == "GET":

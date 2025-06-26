@@ -7,6 +7,7 @@ from app.utils.session_operations import get_valid_session
 
 @app.route("/login", methods=["GET","POST"])
 def login_page():
+    print("--------------" + request.method + "/login")
     data = request.args if request.method == "GET" else request.form
     saml_request_b64 = data.get("SAMLRequest", "")
     relay_state = data.get("RelayState", "")
@@ -32,6 +33,7 @@ def login_page():
         return render_template("login.html")
 
     # POST logic
+
     email = request.form.get("email")
     password = request.form.get("password")
 
@@ -39,10 +41,10 @@ def login_page():
 
     try:
         encoded_session = signin_email_and_password(email, password)
+        print("sso_url: " + sso_url)
         if encoded_session:
             resp = make_response(redirect(sso_url))
             resp.set_cookie("session", encoded_session, httponly=True)
-            print
             return resp
         else:
             return jsonify({

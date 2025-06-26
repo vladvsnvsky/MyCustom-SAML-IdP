@@ -1,4 +1,4 @@
-from flask import request, redirect, make_response
+from flask import redirect, make_response
 
 from app.app import app
 

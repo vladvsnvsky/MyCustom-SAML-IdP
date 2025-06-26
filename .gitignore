@@ -69,3 +69,5 @@ instance/
 # System files
 .DS_Store
 Thumbs.db
+/saml_cert.pem
+/private_key.pem
