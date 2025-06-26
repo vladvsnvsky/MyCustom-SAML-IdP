@@ -105,10 +105,8 @@
 <input type="text" id="sessionCookie" placeholder="Paste your session token here">
 <button type="button" onclick="setSessionCookie()">Set Cookie</button><br><br>
 
-
-
-
   <form action="/sso" method="POST">
+    <button type="submit" style="background-color: lime; color: green;">Submit the SAML Request to our IdP</button><br>
     <label>SAMLRequest:</label><br>
     <input type="text" id="samlRequest" name="SAMLRequest"><br>
     <small>This is a base64-encoded XML document from the Service Provider</small>
@@ -126,7 +124,6 @@
     <input type="text" id="signature" name="Signature"><br>
     <small>The digital signature calculated by the Service Provider over the request</small><br><br>
 
-    <button type="submit">Submit POST Request</button>
   </form>
 
   <h2>Decoded SAMLRequest (XML)</h2>
