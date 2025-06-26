@@ -74,11 +74,12 @@ SIGN_IN_URL = "http://localhost:5000/sso"
 PATH_TO_PRIVATE_KEY= "private_key.pem"
 PATH_TO_CERTIFICATE = "saml_cert.pem"
 YOUR_ENTITY_NAME = "test"
-AUTH0_CONNECTION_NAME = "myIdp-Flask"
 KEY_TO_ENCODE = "abc123"
 TEST_EMAIL = "user1@test.com"
 TEST_PASSWORD = "abcd"
 ACTIVE_SESSION = "user_id:1829|email:user1@test.org|name:TestFirstName TestLastName|expires:2028-06-20"
+AUTH0_CONNECTION_NAME = "myIdp-Flask"
+AUTH0_DOMAIN = yourauth0domain.auth0.com
 ```
 In the `.env`, ensure the active session is not expired -- update the value of the `expires` field.
 
@@ -112,5 +113,7 @@ python run.py
 3. Under `Login Experience` tab enable the option `Display connection as a button`
 4. Under `Applications`, enable the connection for the Tenant's `Default App`
 5. Go to `Getting Started` > Click on `Login Box` > `Try it out` and use the SAML Connection.
+---
+⚠️Once Auth0 is configured, update the variable `AUTH0_DOMAIN` with your tenant's domain.
 ---
 
